@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercício do Alien</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      // É definido a largura e altura do jogo
+      const larguraJogo = 700;
+      const alturaJogo = 750;
+
+      // O phaser é configurado
+      const config = {
+        type: Phaser.AUTO,
+        width: larguraJogo,
+        height: alturaJogo,
+        physics: {
+          default: "arcade",
+          arcade: {
+            gravity: { y: 300 },
+            debug: false,
+          },
+        },
+        scene: {
+          preload: preload,
+          create: create,
+          update: update,
+        },
+      };
+
+      // O jogo é inicializado
+      const game = new Phaser.Game(config);
+
+      var alien;
+      var teclado;
+      var fogo;
+      var plataforma;
+      var moeda;
+      var pontuacao = 0;
+      var placar;
+      var obstaculo2;
+      var chao;
+
+      var backgroundSprite;
+      var backgroundSpriteDark;
+      var oldBackground;
+      var isDarkBg = false;
+
+      function preload() {
+        // Carrega as imagens necessárias
+        this.load.image("background", "assets/bg.png");
+        //Adiciona a plataforma
+        this.load.image("plataforma_tijolo", "assets/tijolos.png");
+        // A imagem do alien é pré-carregada
+        this.load.image("player", "assets/alienigena.png");
+        // A imagem do fogo da nave é pré-carregada
+        this.load.image("turbo_nave", "assets/turbo.png");
+        // A imagem da moeda é pré-carregada
+        this.load.image("moeda", "assets/moeda.png");
+        // obstaculo2 e buracos de minhoca
+        this.load.image("obstaculo2", "assets/obstaculo2.png");
+        this.load.image("portal1", "assets/portal1.gif");
+        this.load.image("portal2", "assets/portal2.gif");
+        // Imagem de fundo adicional
+        this.load.image("background2", "assets/bg2.png");
+      }
+
+      function create() {
+        // Fundo antigo
+        oldBackground = this.add.image(larguraJogo / 2, alturaJogo / 2, "background");
+        oldBackground.setDepth(-4);
+        // Fundo principal claro
+        backgroundSprite = this.add.image(larguraJogo / 2, alturaJogo / 2, "background");
+        backgroundSprite.setDepth(-3);
+        // Fundo escuro
+        backgroundSpriteDark = this.add.image(larguraJogo / 2, alturaJogo / 2, "background2");
+        backgroundSpriteDark.setDepth(-2);
+        backgroundSpriteDark.setAlpha(0);
+
+        // Adiciona chão invisível para impedir que objetos passem do limite da tela
+        chao = this.add.rectangle(larguraJogo / 2, alturaJogo - 10, larguraJogo, 20);
+        this.physics.add.existing(chao, true); // faz o chão ser estático
+
+        // buracos de minhoca
+        portalA = this.physics.add.staticImage(150, 120, "portal1");
+        portalB = this.physics.add.staticImage(550, 120, "portal2");
+
+        // Adiciona o "foguinho" do modo turbo
+        fogo = this.add.sprite(0, 0, "turbo_nave");
+        fogo.setVisible(false);
+
+        //Adiciona o alien
+        alien = this.physics.add.sprite(larguraJogo / 2, 0, "player");
+        alien.setCollideWorldBounds(true); // alien não sai da tela
+
+        // A plataforma é adicionada
+        plataforma = this.physics.add.staticImage(larguraJogo / 2, alturaJogo / 2, "plataforma_tijolo");
+        this.physics.add.collider(alien, plataforma); // alien colide com a plataforma
+        this.physics.add.collider(alien, chao); // alien colide com o chão
+
+        //A moeda é adicionada
+        moeda = this.physics.add.sprite(larguraJogo / 2, 0, "moeda");
+        moeda.setCollideWorldBounds(true); // moeda não sai da tela
+        moeda.setBounce(0.7); // faz a moeda quicar
+        this.physics.add.collider(moeda, plataforma);
+        this.physics.add.collider(moeda, chao);
+
+        // Adicionando funções ao teclado
+        teclado = this.input.keyboard.createCursorKeys();
+
+        // adicionando placar
+        placar = this.add.text(50, 50, "Moedas:" + pontuacao, {
+          fontSize: "30px",
+          fill: "#495613",
+        });
+
+        // Quando o alien encostar na moeda...
+        this.physics.add.overlap(alien, moeda, function () {
+          // a moeda some e aparece de novo em outro lugar
+          moeda.setVisible(false);
+          var posicaoMoeda_Y = Phaser.Math.RND.between(50, 650);
+          moeda.setPosition(posicaoMoeda_Y, 100);
+          pontuacao++;
+          placar.setText("Moedas:" + pontuacao);
+          moeda.setVisible(true);
+        });
+
+        // Obstáculo dinâmico
+        obstaculo2 = this.physics.add.sprite(350, 500, "obstaculo2");
+        obstaculo2.setCollideWorldBounds(true); // não sai da tela
+        obstaculo2.setBounce(0.7); // quica também
+        obstaculo2.setScale(0.3);
+        obstaculo2.setOrigin(0.5, 0.5);
+        this.physics.add.collider(obstaculo2, plataforma);
+        this.physics.add.collider(obstaculo2, chao);
+        this.physics.add.collider(alien, obstaculo2);
+        this.physics.add.collider(moeda, obstaculo2);
+
+        //Overlap entre o alien e os buracos de minhoca
+        this.physics.add.overlap(alien, portalA, teletransportaA); // teletransporta ao encostar no A
+        this.physics.add.overlap(alien, portalB, teletransportaB); // teletransporta ao encostar no B
+
+        // Ajustes de escala dos portais
+        portalA.setScale(0.4);
+        portalB.setScale(0.4);
+
+        // Ajusta área de colisão dos portais
+        portalA.setOrigin(0.5, 0.5);
+        portalA.body.setSize(portalA.displayWidth, portalA.displayHeight);
+        portalA.body.setOffset(-portalA.displayWidth / 2, -portalA.displayHeight / 2);
+        portalA.refreshBody();
+
+        portalB.setOrigin(0.5, 0.5);
+        portalB.body.setSize(portalB.displayWidth, portalB.displayHeight);
+        portalB.body.setOffset(-portalB.displayWidth / 2, -portalB.displayHeight / 2);
+        portalB.refreshBody();
+
+        // Lista de moedas extras
+        var listaMoedas = [];
+        for (var i = 0; i < 3; i++) {
+          let m = this.physics.add.sprite(Phaser.Math.RND.between(50, 650), 0, "moeda");
+          m.setCollideWorldBounds(true);
+          m.setBounce(0.7);
+          this.physics.add.collider(m, plataforma);
+          this.physics.add.collider(m, chao);
+          this.physics.add.collider(m, obstaculo2);
+          this.physics.add.overlap(alien, m, () => {
+            // pega a moeda extra
+            m.setVisible(false);
+            m.setPosition(Phaser.Math.RND.between(50, 650), 100);
+            pontuacao++;
+            placar.setText("Moedas:" + pontuacao);
+            m.setVisible(true);
+          });
+          listaMoedas.push(m);
+        }
+
+        // Temporizador simples
+        var tempo = 60;
+        var textoTempo = this.add.text(400, 50, "Tempo: " + tempo, {
+          fontSize: "20px",
+          fill: "#000",
+        });
+        this.time.addEvent({
+          delay: 1000,
+          callback: () => {
+            tempo--;
+            textoTempo.setText("Tempo: " + tempo);
+            if (tempo <= 0) {
+              // quando o tempo acaba, o alien some e o jogo para
+              alien.setVelocity(0);
+              alien.setActive(false);
+              alien.setVisible(false);
+              obstaculo2.setVelocity(0);
+              textoTempo.setText("Tempo Esgotado");
+              this.physics.pause();
+            }
+          },
+          loop: true,
+        });
+
+        // Restringindo moedas extras para 1 a 3
+        var qtdMoedas = Phaser.Math.RND.between(1, 3);
+        var contMoedas = 0;
+        for (var idx = 0; idx < listaMoedas.length; idx++) {
+          if (contMoedas >= qtdMoedas) {
+            // desativa moedas além do limite
+            listaMoedas[idx].setVisible(false);
+            listaMoedas[idx].body.enable = false;
+          } else {
+            contMoedas++;
+          }
+        }
+      }
+
+      function update() {
+        // Movimento para esquerda
+        if (teclado.left.isDown) {
+          alien.setVelocityX(-300);
+        } else if (teclado.right.isDown) {
+          alien.setVelocityX(300);
+        } else {
+          alien.setVelocityX(0);
+        }
+
+        //Movimento para cima
+        if (teclado.up.isDown) {
+          alien.setVelocityY(-300);
+          ativarTurbo();
+        } else if (teclado.down.isDown) {
+          alien.setVelocityY(300);
+        } else {
+          alien.setVelocityY(90);
+          semTurbo();
+        }
+
+        // faz o foguinho acompanhar a nave
+        fogo.setPosition(alien.x, alien.y + alien.height / 2);
+      }
+
+      function ativarTurbo() {
+        fogo.setVisible(true); // aparece o fogo
+      }
+
+      function semTurbo() {
+        fogo.setVisible(false); // some o fogo
+      }
+
+      function teletransportaA() {
+        // manda o alien para o portal B
+        alien.x = portalB.x;
+        alien.y = portalB.y - 50;
+        desativarPortais(2000);
+        effectTeleportBG();
+      }
+
+      function teletransportaB() {
+        // manda o alien para o portal A
+        alien.x = portalA.x;
+        alien.y = portalA.y - 50;
+        desativarPortais(2000);
+        effectTeleportBG();
+      }
+
+      function desativarPortais(ms) {
+        // desativa portais por um tempo
+        portalA.body.enable = false;
+        portalB.body.enable = false;
+        portalA.scene.time.delayedCall(ms, () => {
+          portalA.body.enable = true;
+          portalB.body.enable = true;
+        });
+      }
+
+      function effectTeleportBG() {
+        // faz um flash rápido e muda o fundo
+        portalA.scene.cameras.main.flash(275, 255, 255, 255);
+        if (!isDarkBg) {
+          backgroundSprite.setTexture("background2");
+          isDarkBg = true;
+        } else {
+          backgroundSprite.setTexture("background");
+          isDarkBg = false;
+        }
+      }
+    </script>
+  </body>
+</html>
