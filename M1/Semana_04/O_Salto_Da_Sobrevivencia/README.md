@@ -105,8 +105,8 @@ O_Salto_Da_Sobrevivencia/
 
 ## 📸 Screenshots
 
-| Tela Inicial | Gameplay | Game Over |
-|-------------|---------|----------|
+| Tela Inicial                            | Gameplay                            | Game Over                            |
+| --------------------------------------- | ----------------------------------- | ------------------------------------ |
 | ![Tela Inicial](assets/screenshot1.png) | ![Gameplay](assets/screenshot2.png) | ![Game Over](assets/screenshot3.png) |
 
 ---
@@ -121,11 +121,13 @@ Acesse diretamente pelo navegador:
 ### **Localmente**
 
 1. Clone o repositório:
+
    ```bash
    git clone https://github.com/richarddalves/ENTREGAS_Inteli.git
    ```
 
 2. Navegue até a pasta do projeto:
+
    ```bash
    cd ENTREGAS_Inteli/M1/Semana_04/O_Salto_Da_Sobrevivencia
    ```
@@ -164,5 +166,4 @@ Este projeto foi desenvolvido para fins educacionais como parte do curso de Ciê
 
 ---
 
-🚀 *Desenvolvido por Richard Alves - Projeto da Semana 4 - Inteli*
-
+🚀 _Desenvolvido por Richard Alves - Projeto da Semana 4 - Inteli_
