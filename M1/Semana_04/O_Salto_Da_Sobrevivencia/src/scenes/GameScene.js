@@ -435,7 +435,7 @@ class GameScene extends Phaser.Scene {
     // Plataformas em zigue-zague
     for (let i = 0; i < 10; i++) {
       const x = startX + 150 + i * 100;
-      const y = 300 + (i % 2) * 100;
+      const y = 250 + (i % 2) * 100;
 
       const platform = this.platforms.create(x, y, "tijolo");
       platform.setScale(1).refreshBody();
@@ -599,7 +599,7 @@ class GameScene extends Phaser.Scene {
   createPlayer() {
     // Cria o sprite do jogador na posição inicial
     this.player = this.physics.add.sprite(this.startPosition.x, this.startPosition.y, "personagem");
-    this.player.setScale(0.4);
+    this.player.setScale(0.5);
     this.player.setBounce(0.1);
     this.player.setCollideWorldBounds(false);
 

@@ -6,13 +6,13 @@
 
 **O Salto da Sobrevivência: Desafio das Dimensões** é um jogo de plataforma 2D com uma estética retrô, desenvolvido como parte da Semana 4 do Módulo 1 do curso de Ciência da Computação do Inteli. Criado utilizando **JavaScript** e o framework **Phaser 3**, o jogo explora conceitos de desenvolvimento de jogos, física de movimento e gerenciamento de estados.
 
-🎮 **Jogue agora [clicando aqui](https://richarddalves.github.io/ENTREGAS_Inteli/M1/Semana_04/O_Salto_Da_Sobrevivencia/) ou pelo link: [https://richarddalves.github.io/ENTREGAS_Inteli/M1/Semana_04/O_Salto_Da_Sobrevivencia/](https://richarddalves.github.io/ENTREGAS_Inteli/M1/Semana_04/O_Salto_Da_Sobrevivencia/)**
+🎮 **Jogue agora [clicando aqui](https://richarddalves.github.io/O_Salto_Da_Sobrevivencia/) ou pelo link: [https://richarddalves.github.io/O_Salto_Da_Sobrevivencia/](https://richarddalves.github.io/O_Salto_Da_Sobrevivencia/)**
 
 ---
 
 ## 🎯 Objetivo do Jogo
 
-Controle o personagem através de diferentes plataformas, colete moedas, derrote monstros e alcance o portal de saída. Para completar o nível, é necessário coletar pelo menos **7 moedas** e chegar até ao final do mapa.
+Controle o personagem através de diferentes plataformas, colete moedas, derrote monstros e alcance o portal de saída. Para completar o nível, é necessário coletar pelo menos **7 moedas**.
 
 ---
 
@@ -105,9 +105,13 @@ O_Salto_Da_Sobrevivencia/
 
 ## 📸 Screenshots
 
-| Tela Inicial                            | Gameplay                            | Game Over                            |
-| --------------------------------------- | ----------------------------------- | ------------------------------------ |
-| ![Tela Inicial](assets/screenshot1.png) | ![Gameplay](assets/screenshot2.png) | ![Game Over](assets/screenshot3.png) |
+| Tela Inicial                            | Gameplay                            |
+| --------------------------------------- | ----------------------------------- |
+| ![Tela Inicial](assets/screenshot1.png) | ![Gameplay](assets/screenshot2.png) |
+
+| Game Over                            | Missão Completa                            |
+| ------------------------------------ | ------------------------------------------ |
+| ![Game Over](assets/screenshot3.png) | ![Missão Completa](assets/screenshot4.png) |
 
 ---
 
@@ -116,7 +120,7 @@ O_Salto_Da_Sobrevivencia/
 ### **Online**
 
 Acesse diretamente pelo navegador:
-**[Jogar O Salto da Sobrevivência](https://richarddalves.github.io/ENTREGAS_Inteli/M1/Semana_04/O_Salto_Da_Sobrevivencia/)**
+**[Jogar O Salto da Sobrevivência](https://richarddalves.github.io/O_Salto_Da_Sobrevivencia/)**
 
 ### **Localmente**
 
@@ -155,8 +159,8 @@ Acesse diretamente pelo navegador:
 
 ## 👨‍💻 Autor
 
-**[Richard Alves](https://github.com/richarddalves)**  
-Aluno do curso de Ciência da Computação do **[Inteli](https://www.inteli.edu.br/)**.
+**Richard Alves**  
+Aluno do curso de Engenharia de Software do **Inteli**.
 
 ---
 
