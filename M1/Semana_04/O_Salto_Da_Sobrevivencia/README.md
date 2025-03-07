@@ -155,7 +155,7 @@ Acesse diretamente pelo navegador:
 
 ## 👨‍💻 Autor
 
-**Richard Alves**  
+**[Richard Alves](https://github.com/richarddalves)**  
 Aluno do curso de Ciência da Computação do **[Inteli](https://www.inteli.edu.br/)**.
 
 ---
