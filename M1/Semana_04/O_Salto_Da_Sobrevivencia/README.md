@@ -156,7 +156,7 @@ Acesse diretamente pelo navegador:
 ## 👨‍💻 Autor
 
 **Richard Alves**  
-Aluno do curso de Engenharia de Software do **Inteli**.
+Aluno do curso de Ciência da Computação do **[Inteli](https://www.inteli.edu.br/)**.
 
 ---
 
