@@ -11,11 +11,11 @@ class WelcomeScene extends Phaser.Scene {
 
   preload() {
     // Carrega todos os assets necessários para a tela inicial
-    this.load.image("fundo", "../../assets/fundo.png");
-    this.load.image("tijolo", "../../assets/tijolos.png");
-    this.load.image("moeda", "../../assets/moeda.png");
-    this.load.image("coracao", "../../assets/coracao.png");
-    this.load.image("espinho", "../../assets/espinho.png");
+    this.load.image("fundo", "./../../assets/fundo.png");
+    this.load.image("tijolo", "./../../assets/tijolos.png");
+    this.load.image("moeda", "./../../assets/moeda.png");
+    this.load.image("coracao", "./../../assets/coracao.png");
+    this.load.image("espinho", "./../../assets/espinho.png");
     this.load.image("monstro", "../../assets/monstro.png");
     this.load.image("brilho", "../../assets/brilho.png");
 
