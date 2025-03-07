@@ -12,7 +12,7 @@
 
 ## 🎯 Objetivo do Jogo
 
-Controle o personagem através de diferentes plataformas, colete moedas, derrote monstros e alcance o portal de saída. Para completar o nível, é necessário coletar pelo menos **7 moedas**.
+Controle o personagem através de diferentes plataformas, colete moedas, derrote monstros e alcance o portal de saída. Para completar o nível, é necessário coletar pelo menos **7 moedas** e chegar até ao final do mapa.
 
 ---
 
