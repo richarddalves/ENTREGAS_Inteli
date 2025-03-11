@@ -4,7 +4,6 @@
  * Classes (MenuScene, GameScene, GameScene2, GameOverScene, WinScene)
  * Herança (GameScene2 extends Phaser.Scene, GameOverScene extends Phaser.Scene)
  * Métodos (preload, create, update, collectGem, enterDoor, hitEnemy)
- */
 
 ## O que mudei:
  * Implementei o sistema de módulos usando export default GameScene2 e import
